@@ -5,6 +5,7 @@ import fujitsutrialtask.fooddeliveryapp.Services.PriceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -21,8 +22,13 @@ public class CalculationsController {
     }
 
     @GetMapping(path = "price")
-    public double GetPrice() {
-        return priceService.CalculatePrice();
+    public double GetPrice(
+            @RequestParam(value = "city", required = false, defaultValue = "Tallinn") String city,
+            @RequestParam(value = "vehicle", required = false, defaultValue = "Car") String vehicle) {
+        // List<String> cities = Arrays.asList("Tallinn", "Tartu", "Parnu");
+        // List<String> vehicles = Arrays.asList("Car", "Scooter", "Bike");
+
+        return priceService.CalculatePrice(city, vehicle);
     }
 
     @GetMapping(path = "weather")

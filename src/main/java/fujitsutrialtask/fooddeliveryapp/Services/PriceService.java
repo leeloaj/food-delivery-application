@@ -16,9 +16,16 @@ public class PriceService {
     public PriceService(WeatherInfoRepository weatherInfoRepository) {
         this.weatherInfoRepository = weatherInfoRepository;
     }
-    public double CalculatePrice() {
+    public double CalculatePrice(String city, String vehicle) {
         List<WeatherInfo> weatherInfo = weatherInfoRepository.findAll();
-        return 111.11111;
+
+        System.out.println(city);
+        System.out.println(vehicle);
+
+
+        return 11.11;
+
+
     }
 
     public List<WeatherInfo> GetWeatherInfo() {

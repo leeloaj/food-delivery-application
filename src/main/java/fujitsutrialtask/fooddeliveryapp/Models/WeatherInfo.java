@@ -1,5 +1,7 @@
 package fujitsutrialtask.fooddeliveryapp.Models;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -9,21 +11,34 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Entity
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class WeatherInfo {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long Id;
+
+    @JacksonXmlProperty(localName = "name")
     private String station;
+
+    @JacksonXmlProperty(localName = "wmocode")
     private String wmoCode;
+
+    @JacksonXmlProperty(localName = "airtemperature")
     private double airTemperature;
+
+    @JacksonXmlProperty(localName = "windspeed")
     private double windSpeed;
+
+    @JacksonXmlProperty(localName = "phenomenon")
     private String phenomenon;
-    private LocalDate timestamp;
+
+    private LocalDateTime timestamp;
 }
+
