@@ -1,5 +1,7 @@
 package fujitsutrialtask.fooddeliveryapp.Services;
 
+import fujitsutrialtask.fooddeliveryapp.Enums.City;
+import fujitsutrialtask.fooddeliveryapp.Enums.Vehicle;
 import fujitsutrialtask.fooddeliveryapp.Exception.DeliveryException;
 import fujitsutrialtask.fooddeliveryapp.Models.WeatherInfo;
 import fujitsutrialtask.fooddeliveryapp.Repositories.WeatherInfoRepository;
@@ -18,11 +20,11 @@ public class PriceService {
     public PriceService(WeatherInfoRepository weatherInfoRepository) {
         this.weatherInfoRepository = weatherInfoRepository;
     }
-    public double calculatePrice(String city, String vehicle) {
+    public double calculatePrice(City city, Vehicle vehicle) {
         List<WeatherInfo> weatherInfos = weatherInfoRepository.findAll();
         WeatherInfo weatherInfo = weatherInfos
                 .stream()
-                .filter(info -> info.getStation().contains(city))
+                .filter(info -> info.getStation().contains(city.toString()))
                 .sorted(Comparator.comparing(WeatherInfo::getTimestamp).reversed())
                 .toList()
                 .get(0);
@@ -31,32 +33,32 @@ public class PriceService {
 
         double totalPrice = 0.0;
         switch (city) {
-            case "Tallinn" -> {
+            case Tallinn -> {
                 switch (vehicle) {
-                    case "Car" -> totalPrice += 4;
-                    case "Scooter" -> totalPrice += 3.5 + getATEF(weatherInfo.getAirTemperature())
+                    case Car -> totalPrice += 4;
+                    case Scooter -> totalPrice += 3.5 + getATEF(weatherInfo.getAirTemperature())
                             + getWPEF(weatherInfo.getPhenomenon());
-                    case "Bike" -> totalPrice += 3 + getATEF(weatherInfo.getAirTemperature())
+                    case Bike -> totalPrice += 3 + getATEF(weatherInfo.getAirTemperature())
                             + getWSEF(weatherInfo.getWindSpeed())
                             + getWPEF(weatherInfo.getPhenomenon());
                 }
             }
-            case "Tartu" -> {
+            case Tartu -> {
                 switch (vehicle) {
-                    case "Car" -> totalPrice += 3.5;
-                    case "Scooter" -> totalPrice += 3 + getATEF(weatherInfo.getAirTemperature())
+                    case Car -> totalPrice += 3.5;
+                    case Scooter -> totalPrice += 3 + getATEF(weatherInfo.getAirTemperature())
                             + getWPEF(weatherInfo.getPhenomenon());
-                    case "Bike" -> totalPrice += 2.5 + getATEF(weatherInfo.getAirTemperature())
+                    case Bike -> totalPrice += 2.5 + getATEF(weatherInfo.getAirTemperature())
                             + getWSEF(weatherInfo.getWindSpeed())
                             + getWPEF(weatherInfo.getPhenomenon());
                 }
             }
-            case "Pärnu" -> {
+            case Parnu -> {
                 switch (vehicle) {
-                    case "Car" -> totalPrice += 3;
-                    case "Scooter" -> totalPrice += 2.5 + getATEF(weatherInfo.getAirTemperature())
+                    case Car -> totalPrice += 3;
+                    case Scooter -> totalPrice += 2.5 + getATEF(weatherInfo.getAirTemperature())
                             + getWPEF(weatherInfo.getPhenomenon());
-                    case "Bike" -> totalPrice += 2 + getATEF(weatherInfo.getAirTemperature())
+                    case Bike -> totalPrice += 2 + getATEF(weatherInfo.getAirTemperature())
                             + getWSEF(weatherInfo.getWindSpeed())
                             + getWPEF(weatherInfo.getPhenomenon());
                 }

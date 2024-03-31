@@ -1,5 +1,7 @@
 package fujitsutrialtask.fooddeliveryapp.Controllers;
 
+import fujitsutrialtask.fooddeliveryapp.Enums.City;
+import fujitsutrialtask.fooddeliveryapp.Enums.Vehicle;
 import fujitsutrialtask.fooddeliveryapp.Exception.DeliveryException;
 import fujitsutrialtask.fooddeliveryapp.Models.WeatherInfo;
 import fujitsutrialtask.fooddeliveryapp.Repositories.WeatherInfoRepository;
@@ -42,7 +44,7 @@ class CalculationsControllerTest {
 
     @Test
     public void testParnuScooter() {
-        double price = controller.getPrice("Pärnu", "Scooter");
+        double price = controller.getPrice(City.Parnu, Vehicle.Scooter);
 
         assertEquals(3.5, price);
     }
@@ -50,34 +52,34 @@ class CalculationsControllerTest {
     @Test
     public void testParnuBike() {
         DeliveryException exception = assertThrows(DeliveryException.class, () -> {
-            controller.getPrice("Pärnu", "Bike");
+            controller.getPrice(City.Parnu, Vehicle.Bike);
         });
         assertEquals(DeliveryException.Reason.UNSUITABLE_CONDITIONS_FOR_THIS_VEHICLE_TYPE, exception.getReason());
     }
     @Test
     public void testTartuCar() {
-        double price = controller.getPrice("Tartu", "Car");
+        double price = controller.getPrice(City.Tartu, Vehicle.Car);
 
         assertEquals(3.5, price);
     }
 
     @Test
     public void testTartuBike() {
-        double price = controller.getPrice("Tartu", "Bike");
+        double price = controller.getPrice(City.Tartu, Vehicle.Bike);
 
         assertEquals(3.0, price);
     }
 
     @Test
     public void testTallinnScooterSnow() {
-        double price = controller.getPrice("Tallinn", "Scooter");
+        double price = controller.getPrice(City.Tallinn, Vehicle.Scooter);
 
         assertEquals(4.5, price);
     }
 
     @Test
     public void testTallinnCarSnow() {
-        double price = controller.getPrice("Tallinn", "Car");
+        double price = controller.getPrice(City.Tallinn, Vehicle.Car);
 
         assertEquals(4, price);
     }

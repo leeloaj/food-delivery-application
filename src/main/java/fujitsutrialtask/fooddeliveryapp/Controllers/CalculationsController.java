@@ -1,5 +1,7 @@
 package fujitsutrialtask.fooddeliveryapp.Controllers;
 
+import fujitsutrialtask.fooddeliveryapp.Enums.City;
+import fujitsutrialtask.fooddeliveryapp.Enums.Vehicle;
 import fujitsutrialtask.fooddeliveryapp.Models.WeatherInfo;
 import fujitsutrialtask.fooddeliveryapp.Services.PriceService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,11 +25,8 @@ public class CalculationsController {
 
     @GetMapping(path = "price")
     public double getPrice(
-            @RequestParam(value = "city", required = false, defaultValue = "Tallinn") String city,
-            @RequestParam(value = "vehicle", required = false, defaultValue = "Car") String vehicle) {
-        // List<String> cities = Arrays.asList("Tallinn", "Tartu", "Parnu");
-        // List<String> vehicles = Arrays.asList("Car", "Scooter", "Bike");
-
+            @RequestParam(value = "city", required = false, defaultValue = "Tallinn") City city,
+            @RequestParam(value = "vehicle", required = false, defaultValue = "Car") Vehicle vehicle) {
         return priceService.calculatePrice(city, vehicle);
     }
 
