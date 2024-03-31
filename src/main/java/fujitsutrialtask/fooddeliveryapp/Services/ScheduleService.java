@@ -5,6 +5,7 @@ import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 import fujitsutrialtask.fooddeliveryapp.Models.WeatherInfo;
 import fujitsutrialtask.fooddeliveryapp.Models.WeatherInfoList;
 import fujitsutrialtask.fooddeliveryapp.Repositories.WeatherInfoRepository;
+import jakarta.annotation.PostConstruct;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
@@ -26,8 +27,17 @@ public class ScheduleService {
         this.weatherInfoRepository = weatherInfoRepository;
     }
 
+    @PostConstruct
+    public void onStartup() {
+        getWeatherInfo();
+    }
+
     @Scheduled(cron = "${cron.job}")
     private void scheduleWeatherInfo() {
+        getWeatherInfo();
+    }
+
+    private void getWeatherInfo() {
         HttpClient client = HttpClient.newHttpClient();
         String url = "https://www.ilmateenistus.ee/ilma_andmed/xml/observations.php";
 

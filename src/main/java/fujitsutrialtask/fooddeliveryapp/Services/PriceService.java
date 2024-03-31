@@ -18,7 +18,7 @@ public class PriceService {
     public PriceService(WeatherInfoRepository weatherInfoRepository) {
         this.weatherInfoRepository = weatherInfoRepository;
     }
-    public double CalculatePrice(String city, String vehicle) {
+    public double calculatePrice(String city, String vehicle) {
         List<WeatherInfo> weatherInfos = weatherInfoRepository.findAll();
         WeatherInfo weatherInfo = weatherInfos
                 .stream()
@@ -67,7 +67,7 @@ public class PriceService {
         return totalPrice;
     }
 
-    private double getATEF(double airTemperature) {
+    public double getATEF(double airTemperature) {
         double atef = 0.0;
         if (airTemperature < -10) {
             atef += 1;
@@ -77,7 +77,7 @@ public class PriceService {
         return atef;
     }
 
-    private double getWSEF(double windSpeed) {
+    public double getWSEF(double windSpeed) {
         double wsef = 0.0;
         if (windSpeed >= 10 && windSpeed <= 20) {
             wsef += 0.5;
@@ -88,7 +88,7 @@ public class PriceService {
         return wsef;
     }
 
-    private double getWPEF(String  phenomenon) {
+    public double getWPEF(String  phenomenon) {
         double wpef = 0.0;
         if (phenomenon.toLowerCase().matches(".*(snow|sleet).*")) {
             wpef += 1;
