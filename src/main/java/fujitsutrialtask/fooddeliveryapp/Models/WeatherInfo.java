@@ -20,25 +20,46 @@ import java.time.LocalDateTime;
 @Builder
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class WeatherInfo {
+
+    /**
+     * Primary key.
+     */
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long Id;
 
+    /**
+     * Station name.
+     */
     @JacksonXmlProperty(localName = "name")
     private String station;
 
+    /**
+     * Station WMO Code.
+     */
     @JacksonXmlProperty(localName = "wmocode")
     private String wmoCode;
 
+    /**
+     * Air temperature.
+     */
     @JacksonXmlProperty(localName = "airtemperature")
     private double airTemperature;
 
+    /**
+     * Wind speed.
+     */
     @JacksonXmlProperty(localName = "windspeed")
     private double windSpeed;
 
+    /**
+     * Phenomenon.
+     */
     @JacksonXmlProperty(localName = "phenomenon")
     private String phenomenon;
 
+    /**
+     * Time which current weather was saved.
+     */
     private LocalDateTime timestamp;
 }
-

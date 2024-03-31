@@ -11,6 +11,9 @@ import org.springframework.stereotype.Service;
 import java.util.Comparator;
 import java.util.List;
 
+/**
+ * Service for price related logic.
+ */
 @Service
 public class PriceService {
 
@@ -20,6 +23,13 @@ public class PriceService {
     public PriceService(WeatherInfoRepository weatherInfoRepository) {
         this.weatherInfoRepository = weatherInfoRepository;
     }
+
+    /**
+     * Calculate price based on city, vehicle and phenomenon.
+     * @param city city to consider.
+     * @param vehicle vehicle to consider.
+     * @return calculated price.
+     */
     public double calculatePrice(City city, Vehicle vehicle) {
         List<WeatherInfo> weatherInfos = weatherInfoRepository.findAll();
         WeatherInfo weatherInfo = weatherInfos
@@ -69,7 +79,7 @@ public class PriceService {
         return totalPrice;
     }
 
-    public double getATEF(double airTemperature) {
+    private double getATEF(double airTemperature) {
         double atef = 0.0;
         if (airTemperature < -10) {
             atef += 1;
@@ -79,7 +89,7 @@ public class PriceService {
         return atef;
     }
 
-    public double getWSEF(double windSpeed) {
+    private double getWSEF(double windSpeed) {
         double wsef = 0.0;
         if (windSpeed >= 10 && windSpeed <= 20) {
             wsef += 0.5;
@@ -90,7 +100,7 @@ public class PriceService {
         return wsef;
     }
 
-    public double getWPEF(String  phenomenon) {
+    private double getWPEF(String  phenomenon) {
         double wpef = 0.0;
         if (phenomenon.toLowerCase().matches(".*(snow|sleet).*")) {
             wpef += 1;

@@ -12,6 +12,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
+/**
+ * Controller for handling price calculation
+ */
 @RestController
 @RequestMapping(path = "api")
 public class CalculationsController {
@@ -23,6 +26,12 @@ public class CalculationsController {
         this.priceService = priceService;
     }
 
+    /**
+     * Calculate price based on given city and vehicle.
+     * @param city which city we are considering.
+     * @param vehicle which vehicle we are considering.
+     * @return Calculated price or Bad Request if bad request params are given.
+     */
     @GetMapping(path = "price")
     public double getPrice(
             @RequestParam(value = "city", required = false, defaultValue = "Tallinn") City city,
@@ -30,6 +39,10 @@ public class CalculationsController {
         return priceService.calculatePrice(city, vehicle);
     }
 
+    /**
+     * Get saved weather info.
+     * @return currently saved weather info.
+     */
     @GetMapping(path = "weather")
     public List<WeatherInfo> getWeatherInfo() {
         return priceService.GetWeatherInfo();
